@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect(process.end.db_url);
+mongoose.connect(process.env.db_url);
 
 let repoSchema = mongoose.Schema({
   username: String,
