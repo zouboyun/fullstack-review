@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
-import { Container, Dimmer, Loader, Image, Segment, Menu } from 'semantic-ui-react';
+import { Container, Dimmer, Loader, Segment, Menu } from 'semantic-ui-react';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,13 +45,21 @@ class App extends React.Component {
   render () {
     if (this.state.repos.length === 0) {
       return (
-        <Segment>
-          <Dimmer active inverted>
-            <Loader inverted>Loading</Loader>
-          </Dimmer>
-    
-          <Image src='/images/wireframe/short-paragraph.png' />
-        </Segment>
+        <div>
+          <Menu fixed='top' inverted>
+            <Menu.Item as='h1' header>
+              Github Fetcher
+            </Menu.Item>
+          </Menu>
+          <Container style={{ marginTop: '7em' }}>
+            <Search onSearch={this.search.bind(this)} />
+            <Segment>
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          </Segment>
+          </Container>
+        </div>
       )
     } else {
       return (
