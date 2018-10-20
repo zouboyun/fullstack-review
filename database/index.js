@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost:27017/fetcher');
 
 let repoSchema = mongoose.Schema({
   username: String,
-  repourl: String,
+  repourl: { type: String, unique: true },
   created: { type: Date, default: Date.now },
   updated: Date,
   forkscount: Number,
@@ -12,10 +12,28 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
-}
+let create = (repoDataArr, cb) => {
+  Repo.create(repoDataArr, (error, response) => {
+    if (error) throw (error);
+    console.log('DATA FROM DB INSERT>>>>>>', response);
+    cb(null, response);
+  });
+};
 
-module.exports.save = save;
+let find = () => {
+  Repo.find().sort({'reposize': -1}).limit(25).exec((error, response) => {
+    if (error) throw (error);
+    console.log('DATA FROM DB SELECT>>>>>>', response);
+  });
+};
+
+let update = (repourl, newrepoData) => {
+  Repo.updateOne({ repourl: repourl }, newrepoData, (error, response) => {
+    if (error) throw (error);
+    console.log('DATA FROM DB UPDATE>>>>>>', response);
+  })
+};
+
+module.exports.create = create;
+module.exports.find = find;
+module.exports.update = update;
