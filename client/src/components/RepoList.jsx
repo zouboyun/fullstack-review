@@ -17,17 +17,15 @@ class RepoList extends React.Component {
   render() {
       return (
         <div>
-        <h4> Repo List Component </h4>
-        There are {this.props.repos.length} repos.
         <Table celled striped>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell colSpan='5'>Top 25 Git Repositories</Table.HeaderCell>
+              <Table.HeaderCell colSpan='5'>Top 25 Git Repositories Based on Size</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             <Table.Row>
-              <Table.Cell>User Name</Table.Cell>
+              <Table.Cell>Username</Table.Cell>
               <Table.Cell>Repo URL</Table.Cell> 
               <Table.Cell>Repo Size</Table.Cell>
               <Table.Cell>Repo Created At</Table.Cell>

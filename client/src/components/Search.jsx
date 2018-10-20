@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input } from 'semantic-ui-react';
 
 class Search extends React.Component {
   constructor(props) {
@@ -19,10 +20,10 @@ class Search extends React.Component {
   }
 
   render() {
-    return (<div>
+    return (
+    <div>
       <h4>Add more repos!</h4>
-      Enter a github username: <input value={this.state.term} onChange={this.onChange.bind(this)}/>       
-      <button onClick={this.search.bind(this)}> Add Repos </button>
+      <Input fluid action={{ icon: "search", onClick: this.search.bind(this)}} value={this.state.term} onChange={this.onChange.bind(this)} placeholder='Search github handler...' />
     </div>) 
   }
 }
