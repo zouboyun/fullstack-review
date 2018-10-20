@@ -10,26 +10,43 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
   }
 
   search (term) {
     console.log(`${term} was searched`);
+    let self = this;
     // jquery ajax request to the server
     $.ajax({
       type: "POST",
       url: '/repos',
       data: { term },
-      success: (data) => {
-        console.log(data);
-      }
+    }).then(data => {
+      self.get();
+    });
+  }
+  componentDidMount() {
+    this.get();
+  }
+
+  get() {
+    let self = this;
+    $.ajax({
+      type: "GET",
+      url: '/repos',
+      'Content-Type': "application/json"
+    }).then(data => {
+      console.log('GET DATA FROM DB>>>>>>>>>>', data);
+      // set state
+      self.setState({ repos: data });
+    }).catch(error => {
+      console.log('GET ERROR FROM DB>>>>>>>>>>', error);
     });
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <Search onSearch={this.search.bind(this)}/>
+      <Search onSearch={this.search.bind(this)} />
       <RepoList repos={this.state.repos}/>
     </div>)
   }

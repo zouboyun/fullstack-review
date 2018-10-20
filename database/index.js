@@ -15,15 +15,14 @@ let Repo = mongoose.model('Repo', repoSchema);
 let create = (repoDataArr, cb) => {
   Repo.create(repoDataArr, (error, response) => {
     if (error) throw (error);
-    console.log('DATA FROM DB INSERT>>>>>>', response);
     cb(null, response);
   });
 };
 
-let find = () => {
+let find = (cb) => {
   Repo.find().sort({'reposize': -1}).limit(25).exec((error, response) => {
     if (error) throw (error);
-    console.log('DATA FROM DB SELECT>>>>>>', response);
+    cb(null,response);
   });
 };
 
