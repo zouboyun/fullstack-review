@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect(process.env.db_url);
+mongoose.connect(process.env.db_url, {
+  useMongoClient: true
+});
 
 let repoSchema = mongoose.Schema({
   username: String,
