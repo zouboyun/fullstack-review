@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/fetcher');
+mongoose.connect(process.end.db_url);
 
 let repoSchema = mongoose.Schema({
   username: String,
@@ -26,13 +26,13 @@ let find = (cb) => {
   });
 };
 
-let update = (repourl, newrepoData) => {
-  Repo.updateOne({ repourl: repourl }, newrepoData, (error, response) => {
-    if (error) throw (error);
-    console.log('DATA FROM DB UPDATE>>>>>>', response);
-  })
-};
+// let update = (repourl, newrepoData) => {
+//   Repo.updateOne({ repourl: repourl }, newrepoData, (error, response) => {
+//     if (error) throw (error);
+//     console.log('DATA FROM DB UPDATE>>>>>>', response);
+//   })
+// };
 
 module.exports.create = create;
 module.exports.find = find;
-module.exports.update = update;
+// module.exports.update = update;
