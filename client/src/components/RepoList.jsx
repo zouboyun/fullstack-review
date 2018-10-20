@@ -1,7 +1,6 @@
 import React from 'react';
 import Repo from './Repo.jsx';
 import { Table } from 'semantic-ui-react';
-import { runInThisContext } from 'vm';
 
 class RepoList extends React.Component {
   constructor(props) {

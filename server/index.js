@@ -13,6 +13,7 @@ app.post('/repos', function (req, res) {
   let seachTerm = req.body.term;
   if (!searchedTerms.includes(seachTerm)) {
     searchedTerms.push(seachTerm);
+    // insert into db new data
   }
   // get request to github api through helper function
   getReposByUsername(seachTerm, (error, data) => {
