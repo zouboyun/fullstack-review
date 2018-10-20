@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import { Container, Dimmer, Loader, Image, Segment, Menu } from 'semantic-ui-react';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,8 +36,6 @@ class App extends React.Component {
       url: '/repos',
       'Content-Type': "application/json"
     }).then(data => {
-      console.log('GET DATA FROM DB>>>>>>>>>>', data);
-      // set state
       self.setState({ repos: data });
     }).catch(error => {
       console.log('GET ERROR FROM DB>>>>>>>>>>', error);
@@ -44,11 +43,31 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
-      <h1>Github Fetcher</h1>
-      <Search onSearch={this.search.bind(this)} />
-      <RepoList repos={this.state.repos}/>
-    </div>)
+    if (this.state.repos.length === 0) {
+      return (
+        <Segment>
+          <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+    
+          <Image src='/images/wireframe/short-paragraph.png' />
+        </Segment>
+      )
+    } else {
+      return (
+        <div>
+          <Menu fixed='top' inverted>
+            <Menu.Item as='h1' header>
+              Github Fetcher
+            </Menu.Item>
+          </Menu>
+          <Container style={{ marginTop: '7em' }}>
+            <Search onSearch={this.search.bind(this)} />
+            <RepoList repos={this.state.repos}/>
+          </Container>
+        </div>
+      )
+    }
   }
 }
 
